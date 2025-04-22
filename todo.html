@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>قائمة المهام اليوميه</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    h2 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="welcome"></h2>
+
+
+
+</body>
+
+
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>قائمة المهام</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    h2 {
+      color: #333;
+    }
+    input, textarea, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+      width: 100%;
+    }
+    ul {
+      list-style-type: disc;
+      padding: 20px;
+    }
+    li {
+      background-color: #fff;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    button.delete {
+      background-color: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    textarea {
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="welcome"></h2>
+  <p>هنا هنضيف المهام بتاعتنا لليوم...</p>
+
+  <!-- خانة إدخال التاريخ -->
+  <label for="dateInput">تاريخ اليوم:</label>
+  <input type="date" id="dateInput">
+
+  <!-- حقل إدخال المهام -->
+  <label for="taskInput">أضف مهمة جديدة:</label>
+  <input type="text" id="taskInput" placeholder="أضف مهمة جديدة">
+
+  <!-- قائمة المهام -->
+  <ul id="taskList"></ul>
+
+  <!-- حقل لإدخال الملحوظات -->
+  <label for="notesInput">ملحوظات:</label>
+  <textarea id="notesInput" rows="4" placeholder="أضف ملحوظات هنا..."></textarea>
+
+  <!-- حقل إدخال الحكمة اليومية -->
+  <label for="quoteInput">الحكمة اليومية:</label>
+  <textarea id="quoteInput" rows="3" placeholder="أضف حكمة اليوم..."></textarea>
+
+  <button id="addTaskBtn">أضف المهمة</button>
+
+  <script>
+    // نعرض اسم المستخدم اللي دخل
+    const username = localStorage.getItem("username");
+    document.getElementById("welcome").textContent = "أهلاً يا " + username + "!";
+
+    // إضافة مهمة جديدة
+    const addTaskButton = document.getElementById("addTaskBtn");
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    addTaskButton.addEventListener("click", function() {
+      if (taskInput.value.trim() !== "") {
+        const newTask = document.createElement("li");
+        newTask.textContent = taskInput.value;
+
+        // إضافة زر لحذف المهمة
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "حذف";
+        deleteButton.classList.add("delete");
+        deleteButton.addEventListener("click", function() {
+          newTask.remove();
+        });
+
+        newTask.appendChild(deleteButton);
+        taskList.appendChild(newTask);
+        
+        // مسح خانة الإدخال بعد إضافة المهمة
+        taskInput.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
